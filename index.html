@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Itinerary Download</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+  }
+  .search-bar {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+  }
+  .download-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6600;
+    color: white;
+    cursor: pointer;
+  }
+  .download-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <input type="text" id="destination" class="search-bar" placeholder="Enter your destination (e.g., Dubai)">
+  <button id="downloadBtn" class="download-button" disabled>Download Itinerary</button>
+</div>
+
+<script>
+  const destinationInput = document.getElementById('destination');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  const itineraries = {
+    'mme': 'https://tripmonkey.in/wp-content/uploads/awsm-job-openings/2024/05/852ff9b9a26b2b055d874125f76bc011dfd42ab51715941095.pdf',
+    'SME': 'https://tripmonkey.in/wp-content/uploads/awsm-job-openings/2024/05/852ff9b9a26b2b055d874125f76bc011dfd42ab51715941095.pdf'
+};
+
+
+  destinationInput.addEventListener('input', function() {
+    const destination = destinationInput.value.trim().toLowerCase();
+    if (destination && itineraries[destination]) {
+      downloadBtn.disabled = false;
+    } else {
+      downloadBtn.disabled = true;
+    }
+  });
+
+  downloadBtn.addEventListener('click', function() {
+    const destination = destinationInput.value.trim().toLowerCase();
+    if (destination && itineraries[destination]) {
+      const link = document.createElement('a');
+      link.href = itineraries[destination];
+      link.download = `${destination}-itinerary.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      alert('Itinerary not available for the entered destination.');
+    }
+  });
+</script>
+</body>
+</html>
